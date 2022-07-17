@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pelisapp/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   @override
@@ -14,6 +15,7 @@ class DetailsScreen extends StatelessWidget {
           delegate: SliverChildListDelegate([
             _PosterAndTitle(),
             _OverView(),
+            CastingCards()
             // _PosterAndTitle(),
             // _PosterAndTitle(),
             // _PosterAndTitle(),
