@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:pelisapp/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
-  String _apikey = '4c9db040f29c6199f90028068235a493';
+  String _apikey = 'YOUR-APIKEY';
   // String _baseUrl = 'api.themoviedb.org';
   String _language = 'en-EN';
 

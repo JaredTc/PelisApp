@@ -13,11 +13,16 @@ class HomeScreen extends StatelessWidget {
 
 
     return Scaffold(
+     
       appBar: AppBar(
-        title: Text('Now Showing', style: TextStyle(color: Colors.black),),
+      
+        title: Text('Now Showing', 
+        style: TextStyle(color: Colors.black,
+        fontSize: 33),),
         elevation: 0,
         actions: [IconButton(onPressed: () {}, 
         icon: Icon(Icons.search_outlined),
+        iconSize: 33,
         color: Colors.black,)],
         
       ),
@@ -28,8 +33,11 @@ class HomeScreen extends StatelessWidget {
           CardSwiper( movies: moviesProvider.onDisplayMovies ),
 
           //Lista Horizontal
-          MovieSlider( movies: moviesProvider.popularMovies, title: 'Populars' ),
-          MovieSlider( movies: moviesProvider.popularMovies,),
+          MovieSlider( movies: moviesProvider.popularMovies,
+           title: 'Populars'
+            ,
+          onNextPage: () => moviesProvider.getPopularMovies(),),
+         
         ],
       )
       )
