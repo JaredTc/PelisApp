@@ -13,7 +13,8 @@ class DetailsScreen extends StatelessWidget {
         _CustomAppBar(movie),
         SliverList(
           delegate: SliverChildListDelegate(
-              [_PosterAndTitle(movie), _OverView(movie), CastingCards()]),
+              [_PosterAndTitle(movie), _OverView(movie),
+               CastingCards( movie.id )]),
         ),
       ],
     ));
@@ -48,7 +49,6 @@ class _CustomAppBar extends StatelessWidget {
             movie.title,
             style: TextStyle(
               fontSize: 16,
-              
             ),
             textAlign: TextAlign.center,
           ),

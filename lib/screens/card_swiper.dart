@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pelisapp/models/models.dart';
 
@@ -19,7 +20,7 @@ class CardSwiper extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: size.height * 0.5,
-        child: Center(child: CircularProgressIndicator(),),
+        child: Center(child: CupertinoActivityIndicator(),),
       );
       
     }

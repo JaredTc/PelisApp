@@ -1,25 +1,51 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pelisapp/models/models.dart';
+import 'package:pelisapp/providers/movies_provider.dart';
+import 'package:provider/provider.dart';
 
 class CastingCards extends StatelessWidget {
-  const CastingCards({Key? key}) : super(key: key);
+  final int movieId;
+
+  const CastingCards(this.movieId);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 30),
-      width: double.infinity,
-      height: 190,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (_, int index) => _CastCard(),
-      ),
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+    return FutureBuilder(
+      future: moviesProvider.getMovieCast(movieId),
+      builder: (_, AsyncSnapshot<List<Cast>> snapshot) {
+        
+        if( !snapshot.hasData){
+          return Container(
+            constraints: BoxConstraints(maxWidth: 150),
+            height: 100,
+            child: CupertinoActivityIndicator(),
+          );
+        };
+
+        final List<Cast> cast = snapshot.data!;
+
+        return Container(
+          margin: EdgeInsets.only(bottom: 30),
+          width: double.infinity,
+          height: 190,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: (_, int index) => _CastCard( cast[index] ),
+          ),
+        );
+      },
     );
   }
 }
 
 class _CastCard extends StatelessWidget {
-  const _CastCard({Key? key}) : super(key: key);
+  final Cast actor;
+
+  const _CastCard( this.actor );
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +59,17 @@ class _CastCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('assets/no-image.jpg'),
-              image: NetworkImage('https://via.placeholder.com/150x300'),
+              image: NetworkImage( actor.fullprofilePath),
               height: 140,
               width: 100,
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox( height: 5 ,),
+          SizedBox(
+            height: 5,
+          ),
           Text(
-            'actor-name',
+            actor.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
