@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelisapp/providers/movies_provider.dart';
 import 'package:pelisapp/screens/screens.dart';
+import 'package:pelisapp/search/search_delegate.dart';
 import 'package:pelisapp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         style: TextStyle(color: Colors.black,
         fontSize: 33),),
         elevation: 0,
-        actions: [IconButton(onPressed: () {}, 
+        actions: [IconButton(onPressed: () => showSearch(context: context, delegate: MovieSearchDelegate()), 
         icon: Icon(Icons.search_outlined),
         iconSize: 33,
         color: Colors.black,)],

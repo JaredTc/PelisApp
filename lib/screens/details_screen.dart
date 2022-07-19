@@ -12,9 +12,11 @@ class DetailsScreen extends StatelessWidget {
       slivers: [
         _CustomAppBar(movie),
         SliverList(
-          delegate: SliverChildListDelegate(
-              [_PosterAndTitle(movie), _OverView(movie),
-               CastingCards( movie.id )]),
+          delegate: SliverChildListDelegate([
+            _PosterAndTitle(movie),
+            _OverView(movie),
+            CastingCards(movie.id)
+          ]),
         ),
       ],
     ));
@@ -29,9 +31,12 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+       automaticallyImplyLeading: false,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.popAndPushNamed(context, 'home'),
+        //  onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()),),
+        // onPressed: () => Navigator.of(context).pop(),
       ),
       backgroundColor: Colors.indigo,
       expandedHeight: 200,
