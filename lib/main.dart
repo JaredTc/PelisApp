@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Pelis App',
+      title: 'PelisApp',
       initialRoute: 'home',
       routes: {
         'home': (_) => HomeScreen(),

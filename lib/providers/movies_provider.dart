@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:pelisapp/helpers/debouncer.dart';
 import 'package:pelisapp/models/models.dart';
 import 'package:pelisapp/models/search_response.dart';
 
@@ -13,6 +16,13 @@ class MoviesProvider extends ChangeNotifier {
   Map<int, List<Cast>> moviesCast = {};
 
   int _popularPage = 0;
+  final debouncer = Debouncer(
+    duration: Duration(milliseconds:  500),
+ );
+
+  final StreamController<List<Movie>> _suggestionStreamController = new StreamController.broadcast();
+
+      Stream<List<Movie>> get suggestionStream =>  this._suggestionStreamController.stream;
 
   MoviesProvider() {
     print('MoviesProvider Inicializado');
@@ -60,13 +70,28 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<Movie>> searchMovie(String query) async {
-
-    final data = {'api_key': _apikey, 'language': _language, 'query': query };
+    final data = {'api_key': _apikey, 'language': _language, 'query': query};
 
     final url = Uri.https('api.themoviedb.org', '3/search/movie/', data);
     final response = await http.get(url);
-    final searchResponse = SearchResponse.fromJson( response.body );
+    final searchResponse = SearchResponse.fromJson(response.body);
 
     return searchResponse.results;
+  }
+
+  void getSuggestionsByQuery( String searchTerm){
+    debouncer.value = '';
+    debouncer.onValue = ( value ) async {
+      final results = await this.searchMovie( value );
+      this._suggestionStreamController.add( results );
+    };
+    final timer = Timer.periodic(Duration(milliseconds: 300), ( _ ) {
+      debouncer.value = searchTerm;
+    });
+
+    Future.delayed(
+      Duration(milliseconds: 301)).then(( _ ) => timer.cancel()
+    );
+
   }
 }

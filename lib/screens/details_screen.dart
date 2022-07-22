@@ -5,7 +5,7 @@ import 'package:pelisapp/widgets/widgets.dart';
 class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     return Scaffold(
         body: CustomScrollView(
@@ -31,13 +31,13 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-       automaticallyImplyLeading: false,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: () => Navigator.popAndPushNamed(context, 'home'),
-        //  onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()),),
-        // onPressed: () => Navigator.of(context).pop(),
-      ),
+      //  automaticallyImplyLeading: false,
+      // leading: IconButton(
+      //   icon: Icon(Icons.arrow_back, color: Colors.white),
+      //   onPressed: () => Navigator.popAndPushNamed(context, 'home'),
+      //   //  onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => HomeScreen()),),
+      //   // onPressed: () => Navigator.of(context).pop(),
+      // ),
       backgroundColor: Colors.indigo,
       expandedHeight: 200,
       floating: false,
